@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from loss import LossFunction
+from gray_loss import LossFunction
 
 
 
