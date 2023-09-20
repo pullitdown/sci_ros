@@ -1,4 +1,2 @@
-./SCI/__pycache__/
-./SCI/.idea/
-./SCI/data/
-./SCI/results/
+./idea
+./__pycache__

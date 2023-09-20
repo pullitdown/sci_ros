@@ -13,12 +13,14 @@ import torch
 from torchvision import transforms
 
 from gray_model import Finetunemodel
-
+import os
 class ImageProcessor:
     def __init__(self):
         # 创建 CvBridge 对象
         self.bridge = CvBridge()
-        self.model = "/home/sunteng/catkin_ws/src/EXP/Train-20230915-1103180.5mse1.5smooth/model_epochs/weights_122.pt"
+
+
+        self.model = rospy.get_param('/sci_node/model_path',"./ckpt/weights_122.pt")
         # 加载你的 PyTorch 模型
         self.device = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -64,6 +66,8 @@ class ImageProcessor:
         msg_out_1 = self.bridge.cv2_to_imgmsg(output_image[1], "mono8")
 
         # 发布处理后的图像
+        msg_out_0.header = msg_0.header
+        msg_out_1.header = msg_1.header
         self.pub_left.publish(msg_out_0)
         self.pub_right.publish(msg_out_1)
 
